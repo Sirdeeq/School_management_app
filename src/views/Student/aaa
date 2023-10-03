@@ -1,0 +1,117 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Grid, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Divider } from '@mui/material';
+import { Add as AddIcon, Visibility as VisibilityIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+
+function Student() {
+  // Mock data for students
+  const students = [
+    { id: 1, name: 'Student 1', class: 'Class I', otherInfo: 'Other Info 1' },
+    { id: 2, name: 'Student 2', class: 'Class II', otherInfo: 'Other Info 2' }
+    // Add more students as needed
+  ];
+
+  const attendanceData = [
+    { id: 1, studentId: 1, dailyPercentage: 80, totalPercentage: 90 },
+    { id: 2, studentId: 2, dailyPercentage: 75, totalPercentage: 85 }
+    // Add more attendance data as needed
+  ];
+
+  const navigate = useNavigate();
+
+  // Handle navigation to AddStudent route
+  const handleAddStudent = () => {
+    navigate('/addStudent');
+  };
+
+  // Handle navigation to ViewStudent route
+  const handleViewStudent = () => {
+    navigate(`/viewStudent`);
+
+    // /${studentId}
+  };
+
+  // Handle view, edit, and delete actions
+  const handleAction = (action, studentId) => {
+    console.log(`Performing ${action} action on student with ID ${studentId}`);
+    if (action === 'View') {
+      handleViewStudent(studentId);
+    } else if (action === 'Edit') {
+      navigate('/editStudent');
+    } else if (action === 'Delete') {
+      // Implement your delete logic here
+    }
+  };
+
+  return (
+    <div>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <IconButton color="primary" onClick={handleAddStudent}>
+            <AddIcon />
+          </IconButton>
+        </Grid>
+        <Grid item xs={12}>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Student Name</TableCell>
+                  <TableCell>Class</TableCell>
+                  <TableCell>Other Information</TableCell>
+                  <TableCell>Action</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {students.map((student) => (
+                  <TableRow key={student.id}>
+                    <TableCell>{student.name}</TableCell>
+                    <TableCell>{student.class}</TableCell>
+                    <TableCell>{student.otherInfo}</TableCell>
+                    <TableCell>
+                      <IconButton onClick={() => handleAction('View', student.id)}>
+                        <VisibilityIcon />
+                      </IconButton>
+                      <IconButton onClick={() => handleAction('Edit', student.id)} style={{ color: 'green' }}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton onClick={() => handleAction('Delete', student.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+        <Divider />
+        {/* Attendance Percentage Table */}
+        <Grid item xs={12}>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Student Name</TableCell>
+                  <TableCell>Daily Percentage</TableCell>
+                  <TableCell>Total Percentage</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {attendanceData.map((data) => (
+                  <TableRow key={data.id}>
+                    <TableCell>{students.find((s) => s.id === data.studentId)?.name}</TableCell>
+                    <TableCell>{data.dailyPercentage}%</TableCell>
+                    <TableCell>{data.totalPercentage}%</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
+
+export default Student;
