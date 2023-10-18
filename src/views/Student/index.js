@@ -92,10 +92,16 @@ const Default = () => {
   };
 
   return (
-    <Grid>
+    <Grid container spacing={gridSpacing}>
       <Box mb={2}>
         <Button onClick={handleAddStudent} startIcon={<AddIcon />} variant="outlined" color="primary">
           New Student
+        </Button>
+      </Box>
+      &nbsp; &nbsp;
+      <Box mb={2}>
+        <Button onClick={() => navigate('/student/mark-sheet')} startIcon={<AddIcon />} variant="outlined" color="primary">
+          Student Mark Sheet
         </Button>
       </Box>
       <Grid container spacing={gridSpacing}>

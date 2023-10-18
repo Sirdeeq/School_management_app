@@ -14,6 +14,9 @@ import MonetizationOnTwoTone from '@mui/icons-material/MonetizationOnTwoTone';
 import DescriptionTwoTone from '@mui/icons-material/DescriptionTwoTone';
 import ThumbUpAltTwoTone from '@mui/icons-material/ThumbUpAltTwoTone';
 import CalendarTodayTwoTone from '@mui/icons-material/CalendarTodayTwoTone';
+import DvrIcon from '@mui/icons-material/Dvr';
+import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
+import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
 import { useNavigate } from 'react-router';
 
 // ==============================|| DASHBOARD DEFAULT ||============================== //
@@ -24,9 +27,28 @@ const Admin = () => {
 
   return (
     <Grid container spacing={gridSpacing}>
+      &nbsp; &nbsp; &nbsp; &nbsp;
       <Box mb={2}>
         <Button onClick={() => navigate('/notice')} startIcon={<AddIcon />} variant="outlined" color="primary">
           Add Notice
+        </Button>
+      </Box>
+      &nbsp; &nbsp;
+      <Box mb={2}>
+        <Button onClick={() => navigate('/notice')} startIcon={<ViewHeadlineIcon />} variant="outlined" color="primary">
+          Attendance
+        </Button>
+      </Box>
+      &nbsp; &nbsp;
+      <Box mb={2}>
+        <Button onClick={() => navigate('/result')} startIcon={<DvrIcon />} variant="outlined" color="primary">
+          Results
+        </Button>
+      </Box>
+      &nbsp; &nbsp;
+      <Box mb={2}>
+        <Button onClick={() => navigate('/admin/transport')} startIcon={<EmojiTransportationIcon />} variant="outlined" color="primary">
+          Transport
         </Button>
       </Box>
       <Grid item xs={12}>

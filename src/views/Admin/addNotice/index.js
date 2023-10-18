@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button, TextField, Snackbar } from '@mui/material';
+import { Button, TextField, Snackbar, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 
 const AddNotice = () => {
   const [notice, setNotice] = useState({ open: false, type: 'success', message: '' });
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -25,11 +26,38 @@ const AddNotice = () => {
     setNotice((prevNotice) => ({ ...prevNotice, open: false }));
   };
 
+  const handleSelectChange = (event) => {
+    const selectedValues = event.target.value;
+
+    // If "All" is selected, set all options
+    const allOptions = ['parents', 'teachers', 'students'];
+    const updatedSelectedOptions = selectedValues.includes('all') ? allOptions : selectedValues;
+
+    setSelectedOptions(updatedSelectedOptions);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         {/* Your form fields go here */}
         <TextField label="Notice" variant="outlined" fullWidth multiline rows={4} margin="normal" required />
+
+        {/* Multi-select for options like All, parents, teachers, students */}
+        <FormControl fullWidth margin="normal">
+          <InputLabel>Select Recipients</InputLabel>
+          <Select
+            multiple
+            value={selectedOptions}
+            onChange={handleSelectChange}
+            variant="outlined"
+            renderValue={(selected) => selected.join(', ')}
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="parents">Parents</MenuItem>
+            <MenuItem value="teachers">Teachers</MenuItem>
+            <MenuItem value="students">Students</MenuItem>
+          </Select>
+        </FormControl>
 
         <Button type="submit" variant="contained" color="primary">
           Submit

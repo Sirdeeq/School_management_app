@@ -12,9 +12,14 @@ import {
   InputLabel,
   Typography,
   TextareaAutosize,
-  IconButton
+  IconButton,
+  Input,
+  CardMedia
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router';
+
 
 const Test = () => {
   const [formData, setFormData] = useState({
@@ -24,16 +29,19 @@ const Test = () => {
     subject: '',
     class: '',
     studentName: '',
+    instruction: '',
     regNo: '',
+    schoolLogo: null,
     questions: [
       {
         id: 1,
-        questionType: 'objective',
+        questionType: '',
         question: '',
         questionNumberType: 'normal'
       }
     ]
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (name, value) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -47,7 +55,7 @@ const Test = () => {
         ...prevData.questions,
         {
           id: newId,
-          questionType: 'objective',
+          questionType: '',
           question: '',
           questionNumberType: 'normal'
         }
@@ -55,10 +63,32 @@ const Test = () => {
     }));
   };
 
-  const handleQuestionInputChange = (id, name, value) => {
+  const handleAddOption = (questionId) => {
     const newQuestions = formData.questions.map((question) =>
-      question.id === id ? { ...question, [name]: value } : question
+      question.id === questionId
+        ? {
+            ...question,
+            options: [...(question.options || []), { label: '', value: '' }]
+          }
+        : question
     );
+    setFormData((prevData) => ({ ...prevData, questions: newQuestions }));
+  };
+
+  const handleDeleteOption = (questionId, optionIndex) => {
+    const newQuestions = formData.questions.map((question) =>
+      question.id === questionId
+        ? {
+            ...question,
+            options: question.options.filter((_, index) => index !== optionIndex)
+          }
+        : question
+    );
+    setFormData((prevData) => ({ ...prevData, questions: newQuestions }));
+  };
+
+  const handleQuestionInputChange = (id, name, value) => {
+    const newQuestions = formData.questions.map((question) => (question.id === id ? { ...question, [name]: value } : question));
     setFormData((prevData) => ({ ...prevData, questions: newQuestions }));
   };
 
@@ -67,13 +97,43 @@ const Test = () => {
     setFormData((prevData) => ({ ...prevData, questions: newQuestions }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData((prevData) => ({ ...prevData, schoolLogo: file }));
+  };
+
+  const handleQuestionOptionChange = (questionId, optionIndex, optionProperty, value) => {
+    const newQuestions = formData.questions.map((question) =>
+      question.id === questionId
+        ? {
+            ...question,
+            options: question.options.map((option, index) => (index === optionIndex ? { ...option, [optionProperty]: value } : option))
+          }
+        : question
+    );
+    setFormData((prevData) => ({ ...prevData, questions: newQuestions }));
+  };
+
   const handleSubmit = () => {
     console.log(formData);
     // Implement your logic for form submission here
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Box p={3}>
+      <Box mb={2}>
+        <Button onClick={handleBack} startIcon={<ArrowBackIcon />} variant="outlined" color="primary">
+          Back
+        </Button>
+      </Box>
+      <Typography variant="h5" gutterBottom>
+        Add New Test
+      </Typography>
+      <br />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -82,6 +142,9 @@ const Test = () => {
             value={formData.schoolName}
             onChange={(e) => handleInputChange('schoolName', e.target.value)}
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Input fullWidth type="file" accept="image/*" onChange={handleFileChange} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField fullWidth label="Section" value={formData.section} onChange={(e) => handleInputChange('section', e.target.value)} />
@@ -109,6 +172,14 @@ const Test = () => {
             label="Registration Number"
             value={formData.regNo}
             onChange={(e) => handleInputChange('regNo', e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <TextField
+            fullWidth
+            label="Instruction"
+            value={formData.instruction}
+            onChange={(e) => handleInputChange('instruction', e.target.value)}
           />
         </Grid>
 
@@ -140,7 +211,7 @@ const Test = () => {
                   >
                     <MenuItem value="objective">Objective</MenuItem>
                     <MenuItem value="essay">Essay</MenuItem>
-                    <MenuItem value="fill">Fill In The Blank</MenuItem>
+                    {/* <MenuItem value="fill">Fill In The Blank</MenuItem> */}
                     {/* Add more question types */}
                   </Select>
                 </FormControl>
@@ -157,6 +228,50 @@ const Test = () => {
                     {/* Add more number types */}
                   </Select>
                 </FormControl>
+                {question.questionType === 'objective' && (
+                  <div>
+                    <br />
+                    <Button variant="outlined" color="primary" onClick={() => handleAddOption(question.id)}>
+                      Add Option
+                    </Button>
+                    <br />
+                    {question.options &&
+                      question.options
+                        .sort((a, b) => a.label.localeCompare(b.label))
+                        .map((option, optionIndex) => (
+                          <div key={optionIndex}>
+                            <TextField
+                              label={`Option ${optionIndex + 1}`}
+                              value={option.label}
+                              onChange={(e) => handleQuestionOptionChange(question.id, optionIndex, 'label', e.target.value)}
+                            />
+                            &nbsp; &nbsp;
+                            <TextField
+                              label="Value"
+                              value={option.value}
+                              onChange={(e) => handleQuestionOptionChange(question.id, optionIndex, 'value', e.target.value)}
+                            />
+                            <br />
+                            <IconButton onClick={() => handleDeleteOption(question.id, optionIndex)} color="error">
+                              <DeleteIcon />
+                            </IconButton>
+                          </div>
+                        ))}
+                  </div>
+                )}
+                {question.questionType === 'fill' && (
+                  <div>
+                    <TextField
+                      fullWidth
+                      label="Fill in the Blank Question"
+                      value={question.question}
+                      onChange={(e) => handleQuestionInputChange(question.id, 'question', e.target.value)}
+                    />
+                  </div>
+                )}
+                {question.questionType === 'fill' && (
+                  <div style={{ borderBottom: '1px solid #000', width: '10px' }}>{question.question}</div>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -172,6 +287,45 @@ const Test = () => {
           <Button variant="contained" color="primary" onClick={handleSubmit}>
             Submit
           </Button>
+        </Grid>
+
+        <Grid container spacing={2} item xs={12} style={{ marginTop: '20px' }}>
+          {formData.schoolLogo && (
+            <Card>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                  <CardMedia component="img" alt="School Logo" height="140" image={URL.createObjectURL(formData.schoolLogo)} />
+                </Grid>
+                <Grid item>
+                  <Typography variant="h5">School Name: {formData.schoolName}</Typography>
+                </Grid>
+              </Grid>
+              <CardContent>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <Typography>Section: {formData.section}</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography>Session: {formData.session}</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography>Class: {formData.class}</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Typography>Instruction: {formData.instruction}</Typography>
+                  </Grid>
+                  {formData.questions.map((question, index) => (
+                    <Grid item xs={12} key={index}>
+                      <Typography>
+                        Question {index + 1}: {question.question}?
+                      </Typography>
+                    </Grid>
+                  ))}
+                  {/* Add more information fields */}
+                </Grid>
+              </CardContent>
+            </Card>
+          )}
         </Grid>
       </Grid>
     </Box>

@@ -26,25 +26,8 @@ export default {
   items: [
     {
       id: 'navigation',
-      title: 'Materially',
+      title: 'School App',
       caption: 'Dashboard',
-      type: 'group',
-      icon: icons['NavigationOutlinedIcon'],
-      children: [
-        {
-          id: 'dashboard',
-          title: 'Dashboard',
-          type: 'item',
-          icon: icons['HomeOutlinedIcon'],
-          url: '/dashboard/default',
-          disabled: true
-        }
-      ]
-    },
-    {
-      id: 'pages',
-      title: 'Pages',
-      caption: 'Prebuild Pages',
       type: 'group',
       icon: icons['NavigationOutlinedIcon'],
       children: [
@@ -61,7 +44,6 @@ export default {
           type: 'collapse',
           icon: icons['SecurityOutlinedIcon'],
           children: [
-
             {
               id: 'admin',
               title: 'Admin Func',
@@ -97,6 +79,34 @@ export default {
               url: '/parent'
               // target: true
             },
+            {
+              id: 'library',
+              title: 'Library',
+              type: 'item',
+              url: '/library'
+              // target: true
+            },
+            {
+              id: 'account',
+              title: 'Account',
+              type: 'item',
+              url: '/account'
+              // target: true
+            },
+            {
+              id: 'setting',
+              title: 'Settings',
+              type: 'item',
+              url: '/settings'
+              // target: true
+            },
+            {
+              id: 'dormitories',
+              title: 'Dormitories',
+              type: 'item',
+              url: '/dormitories'
+              // target: true
+            }
           ]
         }
         // {
@@ -122,7 +132,7 @@ export default {
         //   ]
         // }
       ]
-    },
+    }
     // {
     //   id: 'utils',
     //   title: 'Utils',

@@ -71,6 +71,12 @@ function ClassList() {
             New Test
           </Button>
         </Box>
+        &nbsp;
+        <Box mb={2}>
+          <Button onClick={() => navigate('/class/exams')} startIcon={<AddIcon />} variant="outlined" color="primary">
+            New Exams
+          </Button>
+        </Box>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12}>
             <Grid container spacing={gridSpacing}>
