@@ -39,6 +39,21 @@ export default {
         //   icon: icons['ChromeReaderModeOutlinedIcon']
         // },
         {
+          id: 'account',
+          title: 'Account',
+          type: 'collapse',
+          icon: icons['SecurityOutlinedIcon'],
+          children: [
+            {
+              id: 'account',
+              title: 'Account',
+              type: 'item',
+              url: '/account'
+              // target: true
+            }
+          ]
+        },
+        {
           id: 'admin',
           title: 'Admin',
           type: 'collapse',
@@ -52,12 +67,113 @@ export default {
               // target: true
             },
             {
+              id: 'notice',
+              title: 'Add Notice',
+              type: 'item',
+              url: '/admin/notice'
+              // target: true
+            },
+            {
+              id: 'result',
+              title: 'Result',
+              type: 'item',
+              url: '/result'
+              // target: true
+            },
+            {
+              id: 'transport',
+              title: 'Transport',
+              type: 'item',
+              url: '/admin/transport'
+              // target: true
+            }
+          ]
+        },
+        {
+          id: 'class',
+          title: 'Class',
+          type: 'collapse',
+          icon: icons['SecurityOutlinedIcon'],
+          children: [
+            {
               id: 'class',
               title: 'Class',
               type: 'item',
               url: '/class'
               // target: true
             },
+            {
+              id: 'new-group',
+              title: 'New Group & Section',
+              type: 'item',
+              url: '/addGroup'
+              // target: true
+            },
+            {
+              id: 'subject',
+              title: 'Subject',
+              type: 'item',
+              url: '/subject'
+              // target: true
+            },
+            {
+              id: 'routine',
+              title: 'Routine',
+              type: 'item',
+              url: '/routine'
+              // target: true
+            }
+          ]
+        },
+        {
+          id: 'dormitories',
+          title: 'Dormitories',
+          type: 'item',
+          icon: icons['SecurityOutlinedIcon'],
+          url: '/dormitories'
+        },
+        {
+          id: 'library',
+          title: 'Library',
+          type: 'item',
+          icon: icons['SecurityOutlinedIcon'],
+          url: '/library'
+        },
+        {
+          id: 'parent',
+          title: 'Parent',
+          type: 'item',
+          icon: icons['SecurityOutlinedIcon'],
+          url: '/parent'
+        },
+        {
+          id: 'setting',
+          title: 'Settings',
+          type: 'collapse',
+          icon: icons['SecurityOutlinedIcon'],
+          children: [
+            {
+              id: 'setting',
+              title: 'Settings',
+              type: 'item',
+              icon: icons['SecurityOutlinedIcon'],
+              url: '/settings'
+            },
+            {
+              id: 's-settings',
+              title: 'System Settings',
+              type: 'item',
+              icon: icons['SecurityOutlinedIcon'],
+              url: '/settings/app-settings'
+            }
+          ]
+        },
+        {
+          id: 'student',
+          title: 'Student',
+          type: 'collapse',
+          icon: icons['SecurityOutlinedIcon'],
+          children: [
             {
               id: 'student',
               title: 'Student',
@@ -66,49 +182,36 @@ export default {
               // target: true
             },
             {
+              id: 'new-student',
+              title: 'New Student',
+              type: 'item',
+              url: '/addStudent'
+              // target: true
+            },
+            {
+              id: 'student-mark-sheet',
+              title: 'Student Mark Sheet',
+              type: 'item',
+              url: '/student/mark-sheet'
+              // target: true
+            }
+          ]
+        },
+        {
+          id: 'teacher',
+          title: 'Teacher',
+          type: 'collapse',
+          icon: icons['SecurityOutlinedIcon'],
+          children: [
+            {
               id: 'teacher',
               title: 'Teacher',
               type: 'item',
               url: '/teacher'
-              // target: true
-            },
-            {
-              id: 'parent',
-              title: 'Parent',
-              type: 'item',
-              url: '/parent'
-              // target: true
-            },
-            {
-              id: 'library',
-              title: 'Library',
-              type: 'item',
-              url: '/library'
-              // target: true
-            },
-            {
-              id: 'account',
-              title: 'Account',
-              type: 'item',
-              url: '/account'
-              // target: true
-            },
-            {
-              id: 'setting',
-              title: 'Settings',
-              type: 'item',
-              url: '/settings'
-              // target: true
-            },
-            {
-              id: 'dormitories',
-              title: 'Dormitories',
-              type: 'item',
-              url: '/dormitories'
-              // target: true
             }
           ]
         }
+
         // {
         //   id: 'auth',
         //   title: 'Authentication',

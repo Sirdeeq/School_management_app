@@ -29,7 +29,7 @@ const Admin = () => {
     <Grid container spacing={gridSpacing}>
       &nbsp; &nbsp; &nbsp; &nbsp;
       <Box mb={2}>
-        <Button onClick={() => navigate('/notice')} startIcon={<AddIcon />} variant="outlined" color="primary">
+        <Button onClick={() => navigate('/admin/notice')} startIcon={<AddIcon />} variant="outlined" color="primary">
           Add Notice
         </Button>
       </Box>

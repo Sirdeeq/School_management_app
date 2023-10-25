@@ -54,7 +54,7 @@ function ClassList() {
           </Button>
         </Box>
         &nbsp;
-        <Box mb={2}>
+        <Box>
           <Button onClick={() => navigate('/addSubject')} startIcon={<AddIcon />} variant="outlined" color="primary">
             New Subject
           </Button>

@@ -10,6 +10,11 @@ import TicketForm from 'views/Admin/AddTransport/New/TicketForm';
 import TransactionSlip from 'views/Account/TransactionSlip';
 import NewTransactionSlip from 'views/Account/TransactionSlip/NewTransactionSlip';
 import ProfileSetting from 'views/Settings';
+import ViewRoutine from 'views/Class/addRoutine/ViewRoutine';
+import Routine from 'views/Class/addRoutine/Routine';
+import ViewGroup from 'views/Class/addClass/ViewGroup';
+import Group from 'views/Class/addClass/Group';
+// import StudentDashboard from 'views/Student/Dashboard';
 
 const DashboardDefault = Loadable(lazy(() => import('../views/Dashboard')));
 
@@ -27,6 +32,7 @@ const ViewStudent = Loadable(lazy(() => import('../views/Student/viewStudent')))
 const EditStudent = Loadable(lazy(() => import('../views/Student/viewStudent/EditStudent')));
 const Teacher = Loadable(lazy(() => import('../views/Teacher')));
 const AddSubject = Loadable(lazy(() => import('views/Class/addSubject')));
+const Subject = Loadable(lazy(() => import('views/Class/addSubject/Subject')));
 const AddTeacher = Loadable(lazy(() => import('../views/Teacher/addTeacher')));
 const ViewTeacher = Loadable(lazy(() => import('../views/Teacher/viewTeacher')));
 const EditTeacher = Loadable(lazy(() => import('../views/Teacher/viewTeacher/EditTeacher')));
@@ -77,8 +83,10 @@ const MainRoutes = {
       path: '/',
       element: <DashboardDefault />
     },
+
+   
     {
-      path: '/dashboard/default',
+      path: '/parent-dashboard',
       element: <DashboardDefault />
     },
     { path: '/utils/util-typography', element: <UtilsTypography /> },
@@ -86,7 +94,10 @@ const MainRoutes = {
     { path: '/class', element: <ClassSection /> },
     { path: '/addClass', element: <AddClass /> },
     { path: '/addGroup', element: <AddGroup /> },
+    { path: '/view-group', element: <ViewGroup /> },
+    { path: '/group', element: <Group /> },
     { path: '/addSubject', element: <AddSubject /> },
+    { path: '/subject', element: <Subject /> },
     { path: '/viewClass', element: <ViewClass /> },
     { path: '/student', element: <Student /> },
     { path: '/addStudent', element: <AddStudent /> },
@@ -101,8 +112,10 @@ const MainRoutes = {
     { path: '/class/test', element: <Test /> },
     { path: '/class/exams', element: <Exams /> },
     { path: '/classRoutine', element: <AddClassRoutine /> },
+    { path: '/view-routine', element: <ViewRoutine /> },
+    { path: '/routine', element: <Routine /> },
     { path: '/parentRoutine', element: <ParentRoutine /> },
-    { path: 'admin/notice', element: <Notice /> },
+    { path: '/admin/notice', element: <Notice /> },
     { path: '/result', element: <Results /> },
     { path: '/library', element: <Library /> },
     { path: '/student/mark-sheet', element: <StudentMarkSheet /> },

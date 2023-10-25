@@ -15,19 +15,19 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const StudentMarkSheet = ({ studentData, onClose }) => {
+const StudentMarkSheet = ({ onClose }) => {
  
-  // const studentData = {
-  //   student: 'John Doe',
-  //   attitude: 'Excellent',
-  //   effort: 'High',
-  //   behavior: 'Good',
-  //   courses: [
-  //     { name: 'Math', grades: [90, 85, 88] },
-  //     { name: 'Science', grades: [78, 92, 86] }
-  //     // Add more courses as needed
-  //   ]
-  // };
+  const studentData = {
+    student: 'John Doe',
+    attitude: 'Excellent',
+    effort: 'High',
+    behavior: 'Good',
+    courses: [
+      { name: 'Math', grades: [90, 85, 88], remark: '' },
+      { name: 'Science', grades: [78, 92, 86], remark: '' },
+      // Add more courses as needed
+    ]
+  };
 
   if (!studentData || !studentData.student) {
     // If studentData is undefined or doesn't have a student property, you can handle it accordingly
@@ -46,6 +46,20 @@ const StudentMarkSheet = ({ studentData, onClose }) => {
   const calculateAverage = (grades) => {
     const sum = grades.reduce((acc, grade) => acc + grade, 0);
     return (sum / grades.length).toFixed(2);
+  };
+
+  const calculateRemark = (average) => {
+    if (average >= 85 && average <= 100) {
+      return 'Excellent (A)';
+    } else if (average >= 70 && average < 85) {
+      return 'Very Good (B)';
+    } else if (average >= 50 && average < 70) {
+      return 'Good (C)';
+    } else if (average >= 35 && average < 50) {
+      return 'Fair (D)';
+    } else {
+      return 'Fail (E)';
+    }
   };
 
   return (
@@ -77,6 +91,7 @@ const StudentMarkSheet = ({ studentData, onClose }) => {
                   <TableRow>
                     <TableCell>Course Name</TableCell>
                     <TableCell>Grade</TableCell>
+                    <TableCell>Remark</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -84,6 +99,7 @@ const StudentMarkSheet = ({ studentData, onClose }) => {
                     <TableRow key={course.name}>
                       <TableCell>{course.name}</TableCell>
                       <TableCell>{calculateAverage(course.grades)}</TableCell>
+                      <TableCell>{calculateRemark(calculateAverage(course.grades))}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

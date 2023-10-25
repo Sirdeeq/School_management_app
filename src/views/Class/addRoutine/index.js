@@ -23,7 +23,7 @@ export default function Routine() {
     console.log('Submitted Routine Data:', routineData);
     // Implement your submission logic here
     alert('Routine added successfully');
-    navigate('/class');
+    navigate(-1);
   };
 
   return (

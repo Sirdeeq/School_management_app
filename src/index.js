@@ -4,6 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 // assets
 import 'assets/scss/style.scss';
+import 'react-quill/dist/quill.snow.css';
+
+
 
 // third party
 import { configureStore } from '@reduxjs/toolkit';
